@@ -5,7 +5,7 @@ export default function MyLayout() {
     return <Stack screenOptions={{
         headerShown: false,
         contentStyle: {
-            backgroundColor: colors.white
+            backgroundColor: colors.WHITE
         }
     }}>
         <Stack.Screen name={'index'} options={{
