@@ -4,7 +4,7 @@ import InputField from "@/components/InputField";
 import {colors} from "@/constants";
 import FixedBottomCTA from "@/components/FixedBottomCTA";
 
-const LoginScreen = () => {
+const SignupScreen = () => {
     return (
         <>
             <View style={styles.container}>
@@ -14,8 +14,12 @@ const LoginScreen = () => {
                 <InputField label={'비밀번호'}
                             placeholder={'비밀번호를 입력해주세요'}
                             placeholderTextColor={colors.GRAY_500}/>
+                <InputField label={'비밀번호 확인'}
+                            placeholder={'비밀번호를 입력해주세요'}
+                            placeholderTextColor={colors.GRAY_500}/>
             </View>
-            <FixedBottomCTA label={'로그인 하기'} onPress={() => {}}/>
+            <FixedBottomCTA label={'로그인 하기'} onPress={() => {
+            }}/>
         </>
     );
 };
@@ -27,4 +31,4 @@ const styles = StyleSheet.create({
         gap: 16
     },
 })
-export default LoginScreen;
+export default SignupScreen;
