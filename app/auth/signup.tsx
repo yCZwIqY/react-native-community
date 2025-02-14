@@ -1,26 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from "react-native";
-import InputField from "@/components/InputField";
-import {colors} from "@/constants";
 import FixedBottomCTA from "@/components/FixedBottomCTA";
+import {FormProvider, useForm} from "react-hook-form";
+import EmailInput from "@/components/EmailInput";
+import PasswordInput from "@/components/PasswordInput";
+import PasswordConfirmInput from "@/components/PasswordConfirmInput";
+
+interface FormValues {
+    email: string;
+    password: string;
+    passwordConfirm: string;
+}
 
 const SignupScreen = () => {
+    const signupForm = useForm<FormValues>({
+        defaultValues: {
+            email: '',
+            password: '',
+            passwordConfirm: ''
+        }
+    })
+
+    const onSubmit = (formValues) =>  {
+        console.log(formValues)
+    }
+
     return (
-        <>
+        <FormProvider {...signupForm}>
             <View style={styles.container}>
-                <InputField label={'이메일'}
-                            placeholder={'이메일을 입력해주세요'}
-                            placeholderTextColor={colors.GRAY_500}/>
-                <InputField label={'비밀번호'}
-                            placeholder={'비밀번호를 입력해주세요'}
-                            placeholderTextColor={colors.GRAY_500}/>
-                <InputField label={'비밀번호 확인'}
-                            placeholder={'비밀번호를 입력해주세요'}
-                            placeholderTextColor={colors.GRAY_500}/>
+                <EmailInput/>
+                <PasswordInput submitBehavior={'submit'}/>
+                <PasswordConfirmInput/>
             </View>
-            <FixedBottomCTA label={'로그인 하기'} onPress={() => {
-            }}/>
-        </>
+            <FixedBottomCTA label={'회원가입 하기'} onPress={signupForm.handleSubmit(onSubmit)}/>
+        </FormProvider>
     );
 };
 
