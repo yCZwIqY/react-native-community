@@ -4,6 +4,7 @@ import {colors} from "@/constants";
 import {MaterialCommunityIcons, Octicons} from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {Post} from "@/types";
+import Profile from "@/components/Profile";
 
 interface FeedItemProps {
     post: Post
@@ -14,6 +15,11 @@ const FeedItem = ({post}: FeedItemProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}>
+                <Profile imageUrl={post.author.imageUri}
+                         nickname={post.author.nickname}
+                         createdAt={post.createdAt}
+                         onPress={() => {}}
+                />
                 <Text style={styles.title}>{post.title}</Text>
                 <Text style={styles.description} numberOfLines={3}>{post.description}</Text>
             </View>
