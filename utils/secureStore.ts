@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import {setItemAsync} from 'expo-secure-store';
 
 async function saveSecureStore(key: string, value: string) {
-    await SecureStore / setItemAsync(key, value);
+    await SecureStore.setItemAsync(key, value);
 }
 
 async function getSecureStore(key: string) {

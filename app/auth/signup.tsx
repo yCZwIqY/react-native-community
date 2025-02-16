@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View} from "react-native";
 import FixedBottomCTA from "@/components/FixedBottomCTA";
 import {FormProvider, useForm} from "react-hook-form";
 import EmailInput from "@/components/EmailInput";
 import PasswordInput from "@/components/PasswordInput";
 import PasswordConfirmInput from "@/components/PasswordConfirmInput";
+import useAuth from "@/hooks/queries/useAuth";
 
 interface FormValues {
     email: string;
@@ -13,6 +14,7 @@ interface FormValues {
 }
 
 const SignupScreen = () => {
+    const {signupMutation} = useAuth();
     const signupForm = useForm<FormValues>({
         defaultValues: {
             email: '',
@@ -21,8 +23,9 @@ const SignupScreen = () => {
         }
     })
 
-    const onSubmit = (formValues) =>  {
-        console.log(formValues)
+    const onSubmit = (formValues: FormValues) => {
+        const {email, password} = formValues;
+        signupMutation.mutate({email, password})
     }
 
     return (
