@@ -49,6 +49,7 @@ function RootNavigator() {
     return <Stack>
         <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
         <Stack.Screen name="auth" options={{headerShown: false}}/>
+        <Stack.Screen name="post" options={{headerShown: false, title: '글쓰기'}}/>
         <Stack.Screen name="+not-found"/>
     </Stack>
 }
