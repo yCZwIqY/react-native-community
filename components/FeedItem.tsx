@@ -5,13 +5,16 @@ import {MaterialCommunityIcons, Octicons} from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {Post} from "@/types";
 import Profile from "@/components/Profile";
+import useAuth from "@/hooks/queries/useAuth";
 
 interface FeedItemProps {
     post: Post
 }
 
 const FeedItem = ({post}: FeedItemProps) => {
-    const isLike = false;
+    const {auth} = useAuth()
+    const likeUsers = post.likes?.map((like) => Number(like.userId));
+    const isLike = likeUsers?.includes(auth.id)
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}>
@@ -28,15 +31,17 @@ const FeedItem = ({post}: FeedItemProps) => {
                     <Octicons name={isLike ? 'heart-fill' : 'heart'}
                               size={16}
                               color={isLike ? colors.ORANGE_600 : colors.BLACK}/>
-                    <Text style={isLike ? styles.activeMenuText : styles.menuText}>1</Text>
+                    <Text style={isLike ? styles.activeMenuText : styles.menuText}>
+                        {post.likes.length || "좋아요"}
+                    </Text>
                 </Pressable>
                 <Pressable style={styles.menu}>
                     <MaterialCommunityIcons name={'comment-processing-outline'} size={16} color={colors.BLACK}/>
-                    <Text style={styles.menuText}>{post.commentCount}</Text>
+                    <Text style={styles.menuText}>{post.commentCount || "댓글"}</Text>
                 </Pressable>
                 <Pressable style={styles.menu}>
                     <Ionicons name={'eye-outline'} size={16} color={colors.BLACK}/>
-                    <Text style={styles.menuText}>{post.viewCount}</Text>
+                    <Text style={styles.menuText}>{post.viewCount }</Text>
                 </Pressable>
             </View>
         </View>

@@ -5,6 +5,7 @@ import {deleteSecureStore, getSecureStore, saveSecureStore} from "@/utils/secure
 import {removeHeader, setHeader} from "@/utils/header";
 import queryClient from "@/api/queryClient";
 import {useEffect} from "react";
+import {queryKey} from "@/constants";
 
 function useSignup() {
     return useMutation({
@@ -21,7 +22,7 @@ function useLogin() {
         onSuccess: async ({accessToken}) => {
             setHeader('Authorization', accessToken)
             await saveSecureStore('accessToken', accessToken);
-            queryClient.fetchQuery({queryKey: ['auth', 'getMe']});
+            queryClient.fetchQuery({queryKey: [queryKey.AUTH, queryKey.GET_ME]});
             router.replace('/')
         },
         onError: () => {
@@ -32,7 +33,7 @@ function useLogin() {
 function useGetMe() {
     const {data, isError, isSuccess} = useQuery({
         queryFn: getMe,
-        queryKey: ['auth', 'getMe'],
+        queryKey: [queryKey.AUTH, queryKey.GET_ME],
 
     });
 
@@ -63,7 +64,7 @@ function useAuth() {
     const logout = () => {
         removeHeader('Authorization');
         deleteSecureStore('accessToken');
-        queryClient.resetQueries({queryKey: ['auth']});
+        queryClient.resetQueries({queryKey: [queryKey.AUTH]});
     }
 
     return {auth: {id: data?.id, nickname: data?.nickname}, loginMutation, signupMutation, logout}
